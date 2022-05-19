@@ -1,23 +1,34 @@
 import logo from './logo.svg';
 import './App.css';
+import {useReducer} from 'react'
+
+const initialstate={
+  name:'cheppu'
+}
+
+const MyReducer=(state,action)=>{
+  switch(action.type){
+    case 'change':
+      console.log(action.name)
+      return {...state,name:action.name}
+  }
+}
 
 function App() {
+  const [state,dispatach]=useReducer(MyReducer,initialstate)
+  const str="hello world"
+  var a=str.split(' ')
+  a.push("nijama")
+    
+  console.log(a.slice(0,2))
+  const nameChange=()=>{
+    dispatach({type:'change',name:'deepu'})
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <p>{state.name}</p>
+      <button onClick={()=>{nameChange()}}>CLick me</button>
     </div>
   );
 }
